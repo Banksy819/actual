@@ -61,12 +61,12 @@
     }
   },
   "scripts": {
-    "start": "yarn build && node build/app",
-    "start-monitor": "nodemon --exec 'yarn build && node build/app' --ignore './build/**/*' --ext 'ts,js' build/app",
+    "start": "yarn build && node --import ./register-loader.mjs build/app.js",
+    "start-monitor": "nodemon --exec 'yarn build && node --import ./register-loader.mjs build/app.js' --ignore './build/**/*' --ext 'ts,js' build/app.js",
     "build": "tsgo && yarn add-import-extensions && yarn copy-static-assets",
     "typecheck": "tsgo -b && tsc-strict",
     "add-import-extensions": "node bin/add-import-extensions.mjs",
-    "copy-static-assets": "rm -rf build/src/sql && cp -r src/sql build/src/sql",
+    "copy-static-assets": "node -e \"const fs=require('node:fs');fs.rmSync('build/src/sql',{recursive:true,force:true});fs.cpSync('src/sql','build/src/sql',{recursive:true});\"",
     "test": "NODE_ENV=test NODE_OPTIONS='--experimental-vm-modules --import ./register-loader.mjs --trace-warnings' vitest --run",
     "db:migrate": "yarn build && cross-env NODE_ENV=development node build/src/scripts/run-migrations.js up",
     "db:downgrade": "yarn build && cross-env NODE_ENV=development node build/src/scripts/run-migrations.js down",
