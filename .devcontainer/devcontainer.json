@@ -7,5 +7,8 @@
   // "image": "mcr.microsoft.com/devcontainers/typescript-node:0-16",
   "service": "actual-development",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "containerEnv": {
+    "ACTUAL_DATA_DIR": "/workspaces/${localWorkspaceFolderBasename}/.dev-data"
+  },
   "postCreateCommand": "yarn install"
 }
