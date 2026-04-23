@@ -23,10 +23,20 @@ debug(`Project root: '${projectRoot}'`);
 
 export const sqlDir = path.join(__dirname, 'sql');
 
-const actualAppWebBuildPath = path.join(
-  path.dirname(require.resolve('@actual-app/web/package.json')),
-  'build',
-);
+function resolveActualAppWebBuildPath() {
+  try {
+    return path.join(
+      path.dirname(require.resolve('@actual-app/web/package.json')),
+      'build',
+    );
+  } catch {
+    // Fallback for local monorepo/dev-container setups where workspace linking
+    // may not expose @actual-app/web through node_modules resolution.
+    return path.join(projectRoot, 'packages', 'desktop-client', 'build');
+  }
+}
+
+const actualAppWebBuildPath = resolveActualAppWebBuildPath();
 debug(`Actual web build path: '${actualAppWebBuildPath}'`);
 
 // Custom formats

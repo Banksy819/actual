@@ -62,7 +62,7 @@
   },
   "scripts": {
     "start": "yarn build && node --import ./register-loader.mjs build/app.js",
-    "start-monitor": "nodemon --exec 'yarn build && node --import ./register-loader.mjs build/app.js' --ignore './build/**/*' --ext 'ts,js' build/app.js",
+    "start-monitor": "nodemon --exec 'yarn build && node --import ./register-loader.mjs' --ignore './build/**/*' --ext 'ts,js' build/app.js",
     "build": "tsgo && yarn add-import-extensions && yarn copy-static-assets",
     "typecheck": "tsgo -b && tsc-strict",
     "add-import-extensions": "node bin/add-import-extensions.mjs",
