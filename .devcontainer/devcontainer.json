@@ -10,5 +10,6 @@
   "containerEnv": {
     "ACTUAL_DATA_DIR": "/tmp/actual-data"
   },
+  "postStartCommand": "mkdir -p /tmp/actual-data",
   "postCreateCommand": "yarn install"
 }
