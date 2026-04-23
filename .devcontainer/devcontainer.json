@@ -8,7 +8,7 @@
   "service": "actual-development",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "containerEnv": {
-    "ACTUAL_DATA_DIR": "/workspaces/${localWorkspaceFolderBasename}/.dev-data"
+    "ACTUAL_DATA_DIR": "/tmp/actual-data"
   },
   "postCreateCommand": "yarn install"
 }
