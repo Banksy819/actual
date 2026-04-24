@@ -20,14 +20,14 @@ export function bootstrapPassword(password) {
 
   const hashed = hashPassword(password);
   const accountDb = getAccountDb();
-  accountDb.transaction(() => {
-    accountDb.mutate('DELETE FROM auth WHERE method = ?', ['password']);
-    accountDb.mutate('UPDATE auth SET active = 0');
-    accountDb.mutate(
-      "INSERT INTO auth (method, display_name, extra_data, active) VALUES ('password', 'Password', ?, 1)",
-      [hashed],
-    );
-  });
+  // Avoid nested transaction wrappers; callers like bootstrap() already manage
+  // transaction boundaries and SQLite can lock when wrapping again here.
+  accountDb.mutate('DELETE FROM auth WHERE method = ?', ['password']);
+  accountDb.mutate('UPDATE auth SET active = 0');
+  accountDb.mutate(
+    "INSERT INTO auth (method, display_name, extra_data, active) VALUES ('password', 'Password', ?, 1)",
+    [hashed],
+  );
 
   return {};
 }
