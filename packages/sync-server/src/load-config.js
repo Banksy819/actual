@@ -32,7 +32,7 @@ function resolveActualAppWebBuildPath() {
   } catch {
     // Fallback for local monorepo/dev-container setups where workspace linking
     // may not expose @actual-app/web through node_modules resolution.
-    return path.join(projectRoot, 'packages', 'desktop-client', 'build');
+    return path.join(projectRoot, '..', 'desktop-client', 'build');
   }
 }
 

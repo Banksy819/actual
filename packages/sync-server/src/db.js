@@ -54,5 +54,12 @@ class WrappedDatabase {
 
 /** @param {string} filename */
 export function openDatabase(filename) {
-  return new WrappedDatabase(new Database(filename));
+  const db = new Database(filename, { timeout: 10000 });
+
+  // Make SQLite more tolerant of short-lived writer contention in dev/container
+  // environments and improve concurrent read/write behavior.
+  db.pragma('busy_timeout = 10000');
+  db.pragma('journal_mode = WAL');
+
+  return new WrappedDatabase(db);
 }
