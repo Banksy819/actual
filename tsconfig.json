@@ -17,6 +17,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
+    "ignoreDeprecations": "6.0",
     "downlevelIteration": true,
     // TODO: enable once every file is ts
     // "strict": true,
